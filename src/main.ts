@@ -1,7 +1,7 @@
 import { createClient, SchemaFieldTypes, VectorAlgorithms } from "redis"
 import { getEmbedding } from "./openai"
 import dotenv from "dotenv"
-import { randomUUID } from "crypto";
+import { randomUUID } from "crypto"
 dotenv.config()
 
 function float32Buffer(arr: number[]) {
@@ -13,7 +13,7 @@ function float32Buffer(arr: number[]) {
   const client = createClient({
     url: process.env.REDIS_URL
   })
-  await client.connect();
+  await client.connect()
 
   const indexName = randomUUID()
   try {
@@ -31,9 +31,8 @@ function float32Buffer(arr: number[]) {
     });
   } catch (e) {
     if (e instanceof Error && e.message === "Index already exists") {
-      console.log("Index exists already, skipped creation.");
+      console.log("Index exists already, skipped creation.")
     } else {
-      // Something went wrong, perhaps RediSearch isn"t installed...
       console.error(e);
       process.exit(1);
     }
